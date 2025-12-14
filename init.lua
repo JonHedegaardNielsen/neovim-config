@@ -137,6 +137,21 @@ vim.o.updatetime = 250
 -- Decrease mapped sequence wait time
 vim.o.timeoutlen = 300
 
+vim.lsp.config('roslyn', {
+  on_attach = function()
+    print 'This will run when the server attaches!'
+  end,
+  settings = {
+    ['csharp|inlay_hints'] = {
+      csharp_enable_inlay_hints_for_implicit_object_creation = true,
+      csharp_enable_inlay_hints_for_implicit_variable_types = true,
+    },
+    ['csharp|code_lens'] = {
+      dotnet_enable_references_code_lens = true,
+    },
+  },
+})
+
 -- Configure how new splits should be opened
 vim.o.splitright = true
 vim.o.splitbelow = true
@@ -278,7 +293,7 @@ require('lazy').setup({
   --    }
   --
   -- Here is a more advanced example where we pass configuration
-  -- options to `gitsigns.nvim`.
+  -- options to `gits
   --
   -- See `:help gitsigns` to understand what the configuration keys do
   { -- Adds git related signs to the gutter, as well as utilities for managing changes
@@ -296,6 +311,17 @@ require('lazy').setup({
   {
     'hrsh7th/nvim-cmp',
   },
+  config = function()
+    local cmp = require 'cmp'
+    cmp.setup {
+      mapping = {
+        ['<C-j>'] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior },
+        ['<C-p>'] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select },
+        ['<C-e>'] = cmp.mapping.abort(), -- Close completion menu
+        ['<CR>'] = cmp.mapping.confirm { select = true }, -- Confirm selected item
+      },
+    }
+  end,
   {
     'mfussenegger/nvim-dap',
     dependencies = {
@@ -997,7 +1023,6 @@ require('lazy').setup({
       --
       -- See :h blink-cmp-config-fuzzy for more information
       fuzzy = { implementation = 'lua' },
-
       -- Shows a signature help window while you type arguments for a function
       signature = { enabled = true },
     },
@@ -1077,6 +1102,7 @@ require('lazy').setup({
         'gdshader',
         'bash',
         'c',
+        'c_sharp',
         'diff',
         'html',
         'lua',
@@ -1091,6 +1117,7 @@ require('lazy').setup({
       auto_install = true,
       highlight = {
         enable = true,
+
         -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
         --  If you are experiencing weird indenting issues, add the language to
         --  the list of additional_vim_regex_highlighting and disabled languages for indent.
@@ -1104,6 +1131,12 @@ require('lazy').setup({
     --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
     --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
     --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+  },
+  'seblyng/roslyn.nvim',
+  ---@module 'roslyn.config'
+  ---@type RoslynNvimConfig
+  opts = {
+    -- your configuration comes here; leave empty for default settings
   },
   -- { 'habamax/vim-godot', event = 'VimEnter' },
 
