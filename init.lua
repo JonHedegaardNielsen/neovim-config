@@ -315,7 +315,7 @@ require('lazy').setup({
     local cmp = require 'cmp'
     cmp.setup {
       mapping = {
-        ['<C-j>'] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior },
+        ['<C-j>'] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select },
         ['<C-p>'] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select },
         ['<C-e>'] = cmp.mapping.abort(), -- Close completion menu
         ['<CR>'] = cmp.mapping.confirm { select = true }, -- Confirm selected item
@@ -1004,6 +1004,11 @@ require('lazy').setup({
         -- By default, you may press `<c-space>` to show the documentation.
         -- Optionally, set `auto_show = true` to show the documentation after a delay.
         documentation = { auto_show = false, auto_show_delay_ms = 500 },
+        list = {
+          selection = {
+            auto_insert = false,
+          },
+        },
       },
 
       sources = {
