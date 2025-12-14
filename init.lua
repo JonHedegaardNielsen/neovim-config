@@ -203,9 +203,9 @@ vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower win
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
+
 vim.keymap.set('x', '<leader>p', '"_dp')
 vim.keymap.set('n', '<leader>y', '"+y')
-
 vim.keymap.set('v', '<leader>y', '"+y')
 vim.keymap.set('n', '<leader>y', '"+Y')
 vim.keymap.set('n', '<leader>d', '"_d')
@@ -296,16 +296,58 @@ require('lazy').setup({
   {
     'hrsh7th/nvim-cmp',
   },
-  --[[{
+  {
     'mfussenegger/nvim-dap',
     dependencies = {
+      'rcarriga/nvim-dap-ui',
+
+      -- Required dependency for nvim-dap-ui
       'nvim-neotest/nvim-nio',
+
+      -- Installs the debug adapters for you
       'williamboman/mason.nvim',
-      },
+      'jay-babu/mason-nvim-dap.nvim',
     },
+
     config = function()
       local dap = require 'dap'
 
+      local dapui = require 'dapui'
+      require('mason-nvim-dap').setup {
+        -- Makes a best effort to setup the various debuggers with
+        -- reasonable debug configurations
+        automatic_setup = true,
+
+        -- You can provide additional configuration to the handlers,
+        -- see mason-nvim-dap README for more information
+        handlers = {},
+
+        -- You'll need to check that you have the required things installed
+        -- online, please don't ask me how to install them :)
+        ensure_installed = {
+          -- Update this to ensure that you have the debuggers for the langs you want
+          -- 'delve',
+        },
+      }
+      dapui.setup {
+        -- Set icons to characters that are more likely to work in every terminal.
+        --    Feel free to remove or use ones that you like more! :)
+        --    Don't feel like these are good choices.
+        icons = { expanded = '▾', collapsed = '▸', current_frame = '*' },
+        controls = {
+          icons = {
+            pause = '⏸',
+            play = '▶',
+            step_into = '⏎',
+            step_over = '⏭',
+            step_out = '⏮',
+            step_back = 'b',
+            run_last = '▶▶',
+            terminate = '⏹',
+            disconnect = '⏏',
+          },
+        },
+      }
       -- Godot stuff
       dap.adapters.godot = {
         type = 'server',
@@ -323,8 +365,7 @@ require('lazy').setup({
         },
       }
     end,
-  --,--]]
-
+  },
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
   --
   -- This is often very useful to both group configuration, as well as handle
@@ -612,16 +653,15 @@ require('lazy').setup({
           --  Useful when you're not sure what type a variable is and you want to see
           --  the definition of its *type*, not where it was *defined*.
           map('grt', require('telescope.builtin').lsp_type_definitions, '[G]oto [T]ype Definition')
-          --[[map('<leader>tb', require('dap').toggle_breakpoint, '[T]oggle [B]reakpoint')
           local dap = require 'dap'
-          vim.keymap.set('n', '<leader>db', dap.toggle_breakpoint, { desc = 'Debug: Toggle breakpoint' })
-          vim.keymap.set('n', '<leader><F5>', dap.continue, { desc = 'Debug: Start/Continue' })
-          vim.keymap.set('n', '<F7>', dap.step_over, { desc = 'Debug: Step over' })
-          vim.keymap.set('n', '<F8>', dap.step_into, { desc = 'Debug: Step into' })
-          vim.keymap.set('n', '<F9>', dap.step_out, { desc = 'Debug: Step out' })
-          vim.keymap.set('n', '<F6>', function()
+          map('<leader>tb', dap.toggle_breakpoint, 'Debug: Toggle breakpoint')
+          map('<leader><F5>', dap.continue, 'Debug: Start/Continue')
+          map('<F7>', dap.step_over, 'Debug: Step over')
+          map('<F8>', dap.step_into, 'Debug: Step into')
+          map('<F9>', dap.step_out, 'Debug: Step out')
+          map('<F6>', function()
             dap.terminate()
-          end, { desc = 'Debug: Terminate' })
+          end, 'Debug: Terminate')
 
           -- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
           ---@param client vim.lsp.Client
@@ -653,7 +693,6 @@ require('lazy').setup({
               end,
             },
           }
---]]
           -- The following two autocommands are used to highlight references of the
           -- word under your cursor when your cursor rests there for a little while.
           --    See `:help CursorHold` for information about when this is executed
@@ -775,54 +814,54 @@ require('lazy').setup({
 
       -- Ensure the servers and tools above are installed
       --
-	      -- To check the current status of installed tools and/or manually install
-	      -- other tools, you can run
-	      --    :Mason
-	      --
-	      -- You can press `g?` for help in this menu.
-	      --
-	      -- `mason` had to be setup earlier: to configure its options see the
-	      -- `dependencies` table for `nvim-lspconfig` above.
-	      --
-	      -- You can add other tools here that you want Mason to install
-	      -- for you, so that they are available from within Neovim.
-	      local ensure_installed = vim.tbl_keys(servers or {})
-	      vim.list_extend(ensure_installed, {
-		'stylua', -- Used to format Lua code
-	      })
-	      require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+      -- To check the current status of installed tools and/or manually install
+      -- other tools, you can run
+      --    :Mason
+      --
+      -- You can press `g?` for help in this menu.
+      --
+      -- `mason` had to be setup earlier: to configure its options see the
+      -- `dependencies` table for `nvim-lspconfig` above.
+      --
+      -- You can add other tools here that you want Mason to install
+      -- for you, so that they are available from within Neovim.
+      local ensure_installed = vim.tbl_keys(servers or {})
+      vim.list_extend(ensure_installed, {
+        'stylua', -- Used to format Lua code
+      })
+      require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
-	      require('mason-lspconfig').setup {
-		ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
-		automatic_installation = false,
-		handlers = {
-		  function(server_name)
-		    local server = servers[server_name] or {}
-		    -- This handles overriding only values explicitly passed
-		    -- by the server configuration above. Useful when disabling
-		    -- certain features of an LSP (for example, turning off formatting for ts_ls)
-		    server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-		    require('lspconfig')[server_name].setup(server)
-		  end,
-		},
-	      }
-	      local port = os.getenv 'GDScript_Port' or 6005
-	      local cmd = vim.lsp.rpc.connect('127.0.0.1', port)
-	      local pipe = '/home/jon/Godot_v4.5.1-stable_linux.x86_64' -- I use /tmp/godot.pipe
+      require('mason-lspconfig').setup {
+        ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
+        automatic_installation = false,
+        handlers = {
+          function(server_name)
+            local server = servers[server_name] or {}
+            -- This handles overriding only values explicitly passed
+            -- by the server configuration above. Useful when disabling
+            -- certain features of an LSP (for example, turning off formatting for ts_ls)
+            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+            require('lspconfig')[server_name].setup(server)
+          end,
+        },
+      }
+      local port = os.getenv 'GDScript_Port' or 6005
+      local cmd = vim.lsp.rpc.connect('127.0.0.1', port)
+      local pipe = '/home/jon/Godot_v4.5.1-stable_linux.x86_64' -- I use /tmp/godot.pipe
 
-	      vim.lsp.start {
-		name = 'Godot',
-		cmd = cmd,
-		root_dir = vim.fs.dirname(vim.fs.find({ 'project.godot', '.git' }, { upward = true })[1]),
-		on_attach = function(client, bufnr)
-		  vim.api.nvim_command('echo serverstart("' .. pipe .. '")')
-		end,
-	      }
-	    end,
-	  },
-	  {
-	    'hrsh7th/cmp-nvim-lsp',
-	    lazy = false,
+      vim.lsp.start {
+        name = 'Godot',
+        cmd = cmd,
+        root_dir = vim.fs.dirname(vim.fs.find({ 'project.godot', '.git' }, { upward = true })[1]),
+        on_attach = function(client, bufnr)
+          vim.api.nvim_command('echo serverstart("' .. pipe .. '")')
+        end,
+      }
+    end,
+  },
+  {
+    'hrsh7th/cmp-nvim-lsp',
+    lazy = false,
   },
   { -- Autoformat
     'stevearc/conform.nvim',
@@ -874,7 +913,7 @@ require('lazy').setup({
       {
         'L3MON4D3/LuaSnip',
         version = '2.*',
-        build = (function()
+        build = function()
           -- Build Step is needed for regex support in snippets.
           -- This step is not supported in many windows environments.
           -- Remove the below condition to re-enable on windows.
@@ -882,7 +921,7 @@ require('lazy').setup({
             return
           end
           return 'make install_jsregexp'
-        end),
+        end,
         dependencies = {
           -- `friendly-snippets` contains a variety of premade snippets.
           --    See the README about individual language/framework/plugin snippets:
@@ -1094,28 +1133,26 @@ require('lazy').setup({
   -- Or use telescope!
   -- In normal mode type `<space>sh` then write `lazy.nvim-plugin`
   -- you can continue same window with `<space>sr` which resumes last telescope search
-},	{
-    ui = {
-      -- If you are using a Nerd Font: set icons to an empty table which will use the
-      -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
-      icons = vim.g.have_nerd_font and {} or {
-        cmd = '⌘',
-        config = '🛠',
-        event = '📅',
-        ft = '📂',
-        init = '⚙',
-        keys = '🗝',
-        plugin = '🔌',
-        runtime = '💻',
-        require = '🌙',
-        source = '📄',
-        start = '🚀',
-        task = '📌',
-        lazy = '💤 ',
-      },
+}, {
+  ui = {
+    -- If you are using a Nerd Font: set icons to an empty table which will use the
+    -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
+    icons = vim.g.have_nerd_font and {} or {
+      cmd = '⌘',
+      config = '🛠',
+      event = '📅',
+      ft = '📂',
+      init = '⚙',
+      keys = '🗝',
+      plugin = '🔌',
+      runtime = '💻',
+      require = '🌙',
+      source = '📄',
+      start = '🚀',
+      task = '📌',
+      lazy = '💤 ',
     },
-  }) 
+  },
+})
 
-
- 
 -- vim: ts=2 sts=2 sw=2 et
