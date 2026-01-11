@@ -1,42 +1,42 @@
-local M = {}
-
-local colors = {
-  bg = '#14191c',
-  fg = '#a6e3a1',
-  red = '#fa6b6b',
-  green = '#0da14d',
-  type_color = '#00ff88',
-  primitive_type_color = '#63ffb6',
-
-  ligth_green = '#bbedb7',
-  yellow = '#f9e2af',
-  blue = '#5897fc',
-  light_blue = '#accbfc',
-  magenta = '#f5c2e7',
-  cyan = '#94e2d5',
-  gray = '#6c7086',
-  orange = '#d17634',
-  visual_blue = '#4870b0',
-  string_color = '#ffc08a',
-}
-
-function M.colorscheme()
-  local set = vim.api.nvim_set_hl
-  set(0, 'Normal', { bg = colors.bg })
-  set(0, 'NormalFloat', { bg = colors.bg, fg = colors.fg })
-  set(0, 'Visual', { bg = colors.visual_blue })
-  set(0, 'Comment', { fg = colors.green })
-  set(0, 'Constant', { fg = colors.orange })
-  set(0, 'String', { fg = colors.string_color })
-  set(0, 'Identifier', { fg = colors.light_blue })
-  set(0, 'Function', { fg = colors.blue })
-  set(0, 'Statement', { fg = colors.magenta })
-  set(0, 'Type', { fg = colors.type_color })
-  set(0, 'Special', { fg = colors.primitive_type_color })
-  set(0, 'Error', { fg = colors.red })
-  set(0, 'Keyword', { fg = colors.red })
-  set(0, 'Variable', { fg = colors.yellow })
-  set(0, 'Number', { fg = colors.ligth_green })
-end
-
-return M
+-- local M = {}
+--
+-- local colors = {
+--   bg = '#14191c',
+--   fg = '#a6e3a1',
+--   red = '#fa6b6b',
+--   green = '#0da14d',
+--   type_color = '#00ff88',
+--   primitive_type_color = '#63ffb6',
+--
+--   ligth_green = '#bbedb7',
+--   yellow = '#f9e2af',
+--   blue = '#5897fc',
+--   light_blue = '#accbfc',
+--   magenta = '#f5c2e7',
+--   cyan = '#94e2d5',
+--   gray = '#6c7086',
+--   orange = '#d17634',
+--   visual_blue = '#4870b0',
+--   string_color = '#ffc08a',
+-- }
+--
+-- function M.colorscheme()
+--   local set = vim.api.nvim_set_hl
+--   set(0, 'Normal', { bg = colors.bg })
+--   set(0, 'NormalFloat', { bg = colors.bg, fg = colors.fg })
+--   set(0, 'Visual', { bg = colors.visual_blue })
+--   set(0, 'Comment', { fg = colors.green })
+--   set(0, 'Constant', { fg = colors.orange })
+--   set(0, 'String', { fg = colors.string_color })
+--   set(0, 'Identifier', { fg = colors.light_blue })
+--   set(0, 'Function', { fg = colors.blue })
+--   set(0, 'Statement', { fg = colors.magenta })
+--   set(0, 'Type', { fg = colors.type_color })
+--   set(0, 'Special', { fg = colors.primitive_type_color })
+--   set(0, 'Error', { fg = colors.red })
+--   set(0, 'Keyword', { fg = colors.red })
+--   set(0, 'Variable', { fg = colors.yellow })
+--   set(0, 'Number', { fg = colors.ligth_green })
+-- end
+--
+-- return M

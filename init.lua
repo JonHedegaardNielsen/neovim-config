@@ -117,6 +117,7 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 
+
 vim.keymap.set('x', '<leader>p', '"_dp')
 vim.keymap.set('n', '<leader>y', '"+y')
 vim.keymap.set('v', '<leader>y', '"+y')
@@ -215,7 +216,7 @@ require('lazy').setup({
       mapping = {
         ['<C-j>'] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select },
         ['<C-p>'] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select },
-        ['<C-e>'] = cmp.mapping.abort(), -- Close completion menu
+        ['<C-e>'] = cmp.mapping.abort(),                  -- Close completion menu
         ['<CR>'] = cmp.mapping.confirm { select = true }, -- Confirm selected item
       },
     }
@@ -234,7 +235,7 @@ require('lazy').setup({
   --
   -- Then, because we use the `opts` key (recommended), the configuration runs
   -- after the plugin has been loaded as `require(MODULE).setup(opts)`.
-  { -- Useful plugin to show you pending keybinds.
+  {                     -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     opts = {
@@ -312,8 +313,21 @@ require('lazy').setup({
     },
     config = function(_, opts)
       require('tokyodark').setup(opts) -- calling setup is optional
-      vim.cmd [[colorscheme tokyodark]]
+      if os.getenv('IS_OMARCHY') == 'true' then
+        vim.cmd [[colorscheme tokyodark]]
+        vim.api.nvim_set_hl(0, 'Normal', { bg = '' })
+        vim.api.nvim_set_hl(0, 'NormalFloat', { bg = '' })
+        vim.api.nvim_set_hl(0, 'CursorLine', { bg = '' })
+        vim.api.nvim_set_hl(0, 'FloatBorder', { bg = '' })
+        vim.api.nvim_set_hl(0, 'Pmenu', { bg = '' })
+        vim.api.nvim_set_hl(0, 'LineNr', { bg = '' })
+        vim.api.nvim_set_hl(0, 'TabLineFill', { bg = '' })
+        vim.api.nvim_set_hl(0, 'TabLine', { bg = '' })
+        vim.api.nvim_set_hl(0, 'NonText', { bg = '' })
+        vim.o.background = 'dark'
+      end
     end,
+
   },
   require 'my_harpoon.init',
   {
@@ -517,7 +531,7 @@ require('lazy').setup({
       --  Check out: https://github.com/echasnovski/mini.nvim
     end,
   },
-  require 'my_treesitter.init',
+  require('my_treesitter'),
   'seblyng/roslyn.nvim',
   ---@module 'roslyn.config'
   ---@type RoslynNvimConfig
