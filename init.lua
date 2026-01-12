@@ -116,7 +116,7 @@ vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower win
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
-
+vim.keymap.set('n', '<leader>of', vim.diagnostic.open_float)
 
 vim.keymap.set('x', '<leader>p', '"_dp')
 vim.keymap.set('n', '<leader>y', '"+y')
@@ -321,9 +321,14 @@ require('lazy').setup({
         vim.api.nvim_set_hl(0, 'FloatBorder', { bg = '' })
         vim.api.nvim_set_hl(0, 'Pmenu', { bg = '' })
         vim.api.nvim_set_hl(0, 'LineNr', { bg = '' })
+        vim.api.nvim_set_hl(0, 'CursorLineNr', { bg = '' })
         vim.api.nvim_set_hl(0, 'TabLineFill', { bg = '' })
         vim.api.nvim_set_hl(0, 'TabLine', { bg = '' })
         vim.api.nvim_set_hl(0, 'NonText', { bg = '' })
+        vim.api.nvim_set_hl(0, 'StatusLine', { bg = '' })
+        vim.api.nvim_set_hl(0, 'SignColumn', { bg = '' })
+        vim.api.nvim_set_hl(0, 'FoldColumn', { bg = '' })
+        vim.api.nvim_set_hl(0, 'EndOfBuffer', { bg = '' })
         vim.o.background = 'dark'
       end
     end,
