@@ -17,6 +17,12 @@ return {
 	},
 	config = function()
 		-- Brief aside: **What is LSP?**
+		require("mason").setup({
+			registries = {
+				"github:mason-org/mason-registry",
+				"github:Crashdummyy/mason-registry",
+			},
+		})
 		--
 		-- LSP is an initialism you've probably heard, but might not understand what it is.
 		--
@@ -235,6 +241,7 @@ return {
 			html = {},
 			kotlin_lsp = {},
 			roslyn = {},
+			-- omnisharp = {},
 			lua_ls = {
 				-- cmd = { ... },
 				-- filetypes = { ... },
@@ -250,6 +257,25 @@ return {
 				},
 			},
 		}
+		vim.lsp.config("roslyn", {
+			on_attach = function()
+				print("This will run when the server attaches!")
+			end,
+			settings = {
+				["csharp|inlay_hints"] = {
+					csharp_enable_inlay_hints_for_implicit_variable_types = true,
+					dotnet_enable_references_code_lens = true,
+					dotnet_show_completion_items_from_unimported_namespaces = true,
+				},
+				["csharp|code_lens"] = {
+					dotnet_enable_references_code_lens = true,
+				},
+				["csharp|completion"] = {
+					dotnet_enable_references_code_lens = true,
+					dotnet_show_completion_items_from_unimported_namespaces = true,
+				}
+			},
+		})
 
 		-- Ensure the servers and tools above are installed
 		--
@@ -284,9 +310,9 @@ return {
 				end,
 			},
 		}
-		local port = os.getenv 'GDScript_Port' or 6005
-		local cmd = vim.lsp.rpc.connect('127.0.0.1', port)
-		local pipe = '/home/jon/Godot_v4.5.1-stable_linux.x86_64' -- I use /tmp/godot.pipe
+		-- local port = os.getenv 'GDScript_Port' or 6005
+		-- local cmd = vim.lsp.rpc.connect('127.0.0.1', port)
+		-- local pipe = '/usr/bin/godot' -- I use /tmp/godot.pipe
 
 		vim.lsp.start {
 			name = 'Godot',

@@ -307,31 +307,37 @@ require('lazy').setup({
     lazy = false,
   },
   {
-    'tiagovla/tokyodark.nvim',
-    opts = {
-      -- custom options here
-    },
-    config = function(_, opts)
-      require('tokyodark').setup(opts) -- calling setup is optional
-      if os.getenv('IS_OMARCHY') == 'true' then
-        vim.cmd [[colorscheme tokyodark]]
-        vim.api.nvim_set_hl(0, 'Normal', { bg = '' })
-        vim.api.nvim_set_hl(0, 'NormalFloat', { bg = '' })
-        vim.api.nvim_set_hl(0, 'CursorLine', { bg = '' })
-        vim.api.nvim_set_hl(0, 'FloatBorder', { bg = '' })
-        vim.api.nvim_set_hl(0, 'Pmenu', { bg = '' })
-        vim.api.nvim_set_hl(0, 'LineNr', { bg = '' })
-        vim.api.nvim_set_hl(0, 'CursorLineNr', { bg = '' })
-        vim.api.nvim_set_hl(0, 'TabLineFill', { bg = '' })
-        vim.api.nvim_set_hl(0, 'TabLine', { bg = '' })
-        vim.api.nvim_set_hl(0, 'NonText', { bg = '' })
-        vim.api.nvim_set_hl(0, 'StatusLine', { bg = '' })
-        vim.api.nvim_set_hl(0, 'SignColumn', { bg = '' })
-        vim.api.nvim_set_hl(0, 'FoldColumn', { bg = '' })
-        vim.api.nvim_set_hl(0, 'EndOfBuffer', { bg = '' })
-        vim.o.background = 'dark'
-      end
+    'habamax/vim-godot',
+    event = 'VimEnter'
+  },
+  {
+    'folke/tokyonight.nvim',
+    priority = 1000, -- Make sure to load this before all the other start plugins.
+    config = function()
+      ---@diagnostic disable-next-line: missing-fields
+      require('tokyonight').setup {
+        styles = {
+          comments = { italic = false }, -- Disable italics in comments
+        },
+      }
+
+      -- Load the colorscheme here.
+      -- Like many other themes, this one has different styles, and you could load
+      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
+      vim.cmd.colorscheme 'tokyonight-night'
     end,
+    -- "EdenEast/nightfox.nvim",
+    -- config = function()
+    --   vim.cmd('colorscheme carbonfox')
+    -- end
+    -- 'tiagovla/tokyodark.nvim',
+    -- opts = {
+    --   -- custom options here
+    -- },
+    -- config = function(_, opts)
+    --   require('tokyodark').setup(opts) -- calling setup is optional
+    --   vim.cmd [[colorscheme tokyodark]]
+    -- end,
 
   },
   require 'my_harpoon.init',
@@ -541,6 +547,9 @@ require('lazy').setup({
   ---@module 'roslyn.config'
   ---@type RoslynNvimConfig
   opts = {
+
+    dotnet_enable_references_code_lens = true,
+    dotnet_show_completion_items_from_unimported_namespaces = true,
     -- your configuration comes here; leave empty for default settings
   },
 }, {
