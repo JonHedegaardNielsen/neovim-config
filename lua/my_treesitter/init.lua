@@ -13,6 +13,7 @@ return { -- Highlight, edit, and navigate code
 			'c_sharp',
 			'diff',
 			'html',
+			'xml',
 			'css',
 			'lua',
 			'luadoc',
@@ -25,6 +26,7 @@ return { -- Highlight, edit, and navigate code
 			'xml',
 			'javascript',
 			'typescript',
+			'tsx',
 		},
 		-- Autoinstall languages that are not installed
 		auto_install = true,
@@ -35,6 +37,9 @@ return { -- Highlight, edit, and navigate code
 			--  If you are experiencing weird indenting issues, add the language to
 			--  the list of additional_vim_regex_highlighting and disabled languages for indent.
 			additional_vim_regex_highlighting = { 'ruby' },
+		},
+		incremental_selection = {
+			enable = false,
 		},
 		indent = { enable = true, disable = { 'ruby' } },
 	},
