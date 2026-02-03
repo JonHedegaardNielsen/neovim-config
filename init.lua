@@ -1,4 +1,5 @@
 vim.g.mapleader = ' '
+
 vim.g.maplocalleader = ' '
 vim.wo.relativenumber = true
 -- Set to true if you have a Nerd Font installed and selected in the terminal
@@ -28,7 +29,6 @@ vim.o.showmode = false
 vim.schedule(function()
   vim.o.clipboard = 'unnamedplus'
 end)
-
 -- Enable break indent
 vim.o.breakindent = true
 
@@ -216,7 +216,7 @@ require('lazy').setup({
       mapping = {
         ['<C-j>'] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select },
         ['<C-p>'] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select },
-        ['<C-e>'] = cmp.mapping.abort(),                  -- Close completion menu
+        ['<C-e>'] = cmp.mapping.abort(), -- Close completion menu
         ['<CR>'] = cmp.mapping.confirm { select = true }, -- Confirm selected item
       },
     }
@@ -235,7 +235,7 @@ require('lazy').setup({
   --
   -- Then, because we use the `opts` key (recommended), the configuration runs
   -- after the plugin has been loaded as `require(MODULE).setup(opts)`.
-  {                     -- Useful plugin to show you pending keybinds.
+  { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     opts = {
@@ -330,7 +330,6 @@ require('lazy').setup({
       vim.api.nvim_set_hl(0, 'EndOfBuffer', { bg = '' })
       vim.o.background = 'dark'
     end,
-
   },
   require 'my_harpoon.init',
   {
@@ -417,11 +416,11 @@ require('lazy').setup({
             'rafamadriz/friendly-snippets',
             config = function()
               require('luasnip.loaders.from_vscode').lazy_load()
-              require("luasnip").filetype_extend("typescript", { "tsdoc" })
-              require("luasnip").filetype_extend("javascript", { "jsdoc" })
-              require("luasnip").filetype_extend("lua", { "luadoc" })
-              require("luasnip").filetype_extend("cs", { "csharpdoc" })
-              require("luasnip").filetype_extend("gd", { "godotdoc" })
+              require('luasnip').filetype_extend('typescript', { 'tsdoc' })
+              require('luasnip').filetype_extend('javascript', { 'jsdoc' })
+              require('luasnip').filetype_extend('lua', { 'luadoc' })
+              require('luasnip').filetype_extend('cs', { 'csharpdoc' })
+              require('luasnip').filetype_extend('gd', { 'godotdoc' })
             end,
           },
         },
@@ -539,7 +538,7 @@ require('lazy').setup({
       --  Check out: https://github.com/echasnovski/mini.nvim
     end,
   },
-  require('my_treesitter'),
+  require 'my_treesitter',
   'seblyng/roslyn.nvim',
   ---@module 'roslyn.config'
   ---@type RoslynNvimConfig
