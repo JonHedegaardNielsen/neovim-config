@@ -1,5 +1,5 @@
-require('variables')()
-require('keymaps')()
+require 'variables'()
+require 'keymaps'()
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 -- Highlight when yanking (copying) text
@@ -42,7 +42,7 @@ rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
-  require('my_neo_tree'),
+  require 'my_neo_tree',
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
   -- keys can be used to configure plugin behavior/loading/etc.
@@ -65,9 +65,9 @@ require('lazy').setup({
   -- options to `gits
   --
   -- See `:help gitsigns` to understand what the configuration keys do
-  require('my_gitsigns'),
+  require 'my_gitsigns',
   -- lazy.nvim
-  require('my_trouble'),
+  require 'my_trouble',
   {
     'hrsh7th/nvim-cmp',
   },
@@ -77,7 +77,7 @@ require('lazy').setup({
       mapping = {
         ['<C-j>'] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select },
         ['<C-p>'] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select },
-        ['<C-e>'] = cmp.mapping.abort(),                  -- Close completion menu
+        ['<C-e>'] = cmp.mapping.abort(), -- Close completion menu
         ['<CR>'] = cmp.mapping.confirm { select = true }, -- Confirm selected item
       },
     }
@@ -97,8 +97,8 @@ require('lazy').setup({
   --
   -- Then, because we use the `opts` key (recommended), the configuration runs
   -- after the plugin has been loaded as `require(MODULE).setup(opts)`.
-  require('my_which-key'),
-  require('my_lualine'),
+  require 'my_which-key',
+  require 'my_lualine',
   -- NOTE: Plugins can specify dependencies.
   --
   -- The dependencies are proper plugin specifications as well - anything
@@ -106,23 +106,23 @@ require('lazy').setup({
   --
   -- Use the `dependencies` key to specify the dependencies of a particular plugin
   require 'my_telescope.init',
-  require('my_oil'),
+  require 'my_oil',
   { 'kevinhwang91/promise-async' },
-  require('my_ufo'),
-  require('color_scheme'),
+  require 'my_ufo',
+  require 'color_scheme',
   require 'my_harpoon.init',
-  require('my_lazydev'),
+  require 'my_lazydev',
   require 'LSP.init',
   {
     'hrsh7th/cmp-nvim-lsp',
     lazy = false,
   },
-  require('my_conform'),
+  require 'my_conform',
 
-  require('my_blink-cmp'),
+  require 'my_blink-cmp',
 
   -- Highlight todo, notes, etc in comments
-  { 'folke/todo-comments.nvim',  event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
+  { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
   {
     'nvim-flutter/flutter-tools.nvim',
     lazy = false,
@@ -132,18 +132,20 @@ require('lazy').setup({
     },
     config = true,
   },
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    main = "ibl",
-    ---@module "ibl"
-    ---@type ibl.config
-    opts = {},
-    config = function()
-      require("ibl").setup()
-    end
-
-  },
-  require('my_mini'),
+  require 'my_nvim-ts-autotag',
+  require 'my_navic',
+  -- {
+  --   "lukas-reineke/indent-blankline.nvim",
+  --   main = "ibl",
+  --   ---@module "ibl"
+  --   ---@type ibl.config
+  --   opts = {},
+  --   config = function()
+  --     require("ibl").setup()
+  --   end
+  --
+  -- },
+  require 'my_mini',
   require 'my_treesitter',
   'seblyng/roslyn.nvim',
   ---@module 'roslyn.config'
