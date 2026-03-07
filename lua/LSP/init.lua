@@ -240,8 +240,6 @@ return {
       html = {},
       kotlin_lsp = {},
       roslyn = {},
-      -- omnisharp = {},
-      basedpyright = {},
     }
     local navic = require 'nvim-navic'
     vim.lsp.config('roslyn', {
@@ -249,20 +247,6 @@ return {
         print 'This will run when the server attaches!'
         navic.attach(client, bufnr)
       end,
-      settings = {
-        ['csharp|inlay_hints'] = {
-          csharp_enable_inlay_hints_for_implicit_variable_types = true,
-          dotnet_enable_references_code_lens = true,
-          dotnet_show_completion_items_from_unimported_namespaces = true,
-        },
-        ['csharp|code_lens'] = {
-          dotnet_enable_references_code_lens = true,
-        },
-        ['csharp|completion'] = {
-          dotnet_enable_references_code_lens = true,
-          dotnet_show_completion_items_from_unimported_namespaces = true,
-        },
-      },
     })
 
     for name, server in pairs(servers) do
@@ -290,6 +274,7 @@ return {
       'ruff',
       'mypy',
     })
+    require('mason-tool-installer').setup { ensure_installed = ensure_installed }
     -- local port = os.getenv 'GDScript_Port' or 6005
     -- local cmd = vim.lsp.rpc.connect('127.0.0.1', port)
     -- local pipe = '/usr/bin/godot' -- I use /tmp/godot.pipe

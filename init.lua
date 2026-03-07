@@ -23,7 +23,6 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
     error('Error cloning lazy.nvim:\n' .. out)
   end
 end
-
 ---@type vim.Option
 local rtp = vim.opt.rtp
 rtp:prepend(lazypath)
@@ -41,7 +40,12 @@ rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-  'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
+  {
+    'NMAC427/guess-indent.nvim',
+    config = function()
+      require('guess-indent').setup {}
+    end,
+  }, -- Detect tabstop and shiftwidth automatically
   require 'my_neo_tree',
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
@@ -66,6 +70,7 @@ require('lazy').setup({
   --
   -- See `:help gitsigns` to understand what the configuration keys do
   require 'my_gitsigns',
+  require 'my_copilot',
   -- lazy.nvim
   require 'my_trouble',
   {
