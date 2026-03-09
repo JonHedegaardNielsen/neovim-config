@@ -79,25 +79,8 @@ return {
       dapui.close()
     end
 
-    -- Godot stuff
-    dap.adapters.godot = {
-      type = 'server',
-      host = '127.0.0.1',
-      port = 6009,
-    }
-
-    dap.configurations.gdscript = {
-      {
-        type = 'godot',
-        request = 'launch',
-        name = 'Launch scene',
-        project = '${workspaceFolder}/src',
-        launch_scene = true,
-      },
-    }
     -- lua/configs/nvim-dap.lua
     -- ...
-
     local mason_path = vim.fn.stdpath 'data' .. '/mason/packages/netcoredbg/netcoredbg'
     -- local explicit_path = "$HOME/Documents/debuggers/netcoredbg/netcoredbg"
 
