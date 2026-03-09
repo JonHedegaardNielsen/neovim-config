@@ -238,7 +238,6 @@ return {
       ts_ls = {},
       cssls = {},
       html = {},
-      kotlin_lsp = {},
       roslyn = {},
     }
     local navic = require 'nvim-navic'
