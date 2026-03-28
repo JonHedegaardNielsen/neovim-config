@@ -208,7 +208,7 @@ return {
     local gd_capabilities = vim.lsp.protocol.make_client_capabilities()
 
     gd_capabilities = vim.tbl_deep_extend('force', gd_capabilities, require('cmp_nvim_lsp').default_capabilities())
-    require('lspconfig').gdscript.setup(capabilities)
+    -- require('lspconfig').gdscript.setup(capabilities)
     require('mason').setup {
       registries = {
         'github:mason-org/mason-registry',

@@ -122,6 +122,9 @@ require('lazy').setup({
       )
     end,
   },
+
+  { 'HiPhish/rainbow-delimiters.nvim' },
+
   require 'my_which-key',
   require 'my_lualine',
   -- NOTE: Plugins can specify dependencies.

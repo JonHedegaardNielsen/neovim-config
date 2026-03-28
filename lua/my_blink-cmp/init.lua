@@ -5,6 +5,10 @@ return { -- Autocompletion
   dependencies = {
     -- Snippet Engine
     {
+      'mikavilpas/blink-ripgrep.nvim',
+      version = '*', -- use the latest stable version
+    },
+    {
       'L3MON4D3/LuaSnip',
       version = '2.*',
       build = function()
@@ -85,8 +89,16 @@ return { -- Autocompletion
     },
 
     sources = {
-      default = { 'lsp', 'path', 'snippets', 'lazydev' },
+      default = { 'ripgrep', 'lsp', 'path', 'snippets', 'lazydev' },
       providers = {
+        ripgrep = {
+          module = 'blink-ripgrep',
+          name = 'Ripgrep',
+          -- see the full configuration below for all available options
+          ---@module "blink-ripgrep"
+          ---@type blink-ripgrep.Options
+          opts = {},
+        },
         lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
       },
     },

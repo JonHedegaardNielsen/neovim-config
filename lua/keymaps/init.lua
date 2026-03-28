@@ -8,6 +8,8 @@ return function()
   vim.keymap.set('n', '<leader>bn', '<cmd>bnext<CR>')
   vim.keymap.set('n', '<leader>bp', '<cmd>bprev<CR>')
 
+  vim.keymap.set('i', '<C-u>', '')
+
   -- Diagnostic keymaps
   vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
