@@ -123,7 +123,7 @@ require('lazy').setup({
     end,
   },
 
-  { 'HiPhish/rainbow-delimiters.nvim' },
+  -- { 'HiPhish/rainbow-delimiters.nvim' },
 
   require 'my_which-key',
   require 'my_lualine',
